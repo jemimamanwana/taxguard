@@ -1,0 +1,26 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: lens
+      POSTGRES_PASSWORD: lens
+      POSTGRES_DB: lens
+    volumes: [pgdata:/var/lib/postgresql/data]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U lens"]
+      interval: 3s
+      retries: 20
+  api:
+    build: .
+    depends_on:
+      db: { condition: service_healthy }
+    environment:
+      DATABASE_URL: postgresql+psycopg://lens:lens@db:5432/lens
+      LL_JWT_SECRET: change-me-for-anything-but-a-demo
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      LL_CLAUDE_MODEL: ${LL_CLAUDE_MODEL:-claude-opus-5-5}
+    volumes: [lensdata:/app/data]
+    ports: ["8000:8000"]
+volumes:
+  pgdata:
+  lensdata:

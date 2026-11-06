@@ -1,0 +1,30 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, "Cascadia Mono", Consolas, monospace;
+  --color-ink: #0f1b2d;
+  --color-muted: #5b6b80;
+  --color-line: #dfe5ec;
+  --color-paper: #f5f7fa;
+  --color-brand: #00209f;      /* Lesotho blue */
+  --color-brand-dark: #00177a;
+  --color-brand-soft: #e8ecfb;
+  --color-leaf: #00954a;       /* Lesotho green */
+  --color-fast: #138a4b;
+  --color-fast-soft: #e3f4ea;
+  --color-review: #b26b00;
+  --color-review-soft: #fdf1dc;
+  --color-audit: #b3261e;
+  --color-audit-soft: #fbe6e4;
+}
+
+html, body, #root { height: 100%; }
+body { background: var(--color-paper); color: var(--color-ink); font-family: var(--font-sans); -webkit-font-smoothing: antialiased; }
+.num { font-variant-numeric: tabular-nums; }
+
+@media print {
+  .no-print { display: none !important; }
+  body { background: white; }
+  .print-full { width: 100% !important; max-width: none !important; }
+}
